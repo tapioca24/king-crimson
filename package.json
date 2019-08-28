@@ -1,0 +1,22 @@
+{
+  "name": "king-crimson",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "clean": "rm -rf dist",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "tapioca24",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^23.3.14",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.5.3"
+  }
+}
