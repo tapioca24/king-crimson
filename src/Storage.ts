@@ -1,7 +1,7 @@
 import AVLTree from 'avl'
 
-class DataStore {
+class Storage {
   private tree = new AVLTree()
 }
 
-export default DataStore
+export default Storage
