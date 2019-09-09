@@ -17,7 +17,7 @@ class KingCrimson<T extends KingCrimson.SequentialData> {
     }
 
     this.fetcher.on("update", (payload: UpdatePayload<T>) => {
-      // save data to storage
+      // save items to storage
       this.storage.insert(payload.items)
       // save period to fetched
       this.fetched.insert(payload.period)
