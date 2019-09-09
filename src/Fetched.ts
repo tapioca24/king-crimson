@@ -1,4 +1,4 @@
-import { Interval } from "luxon";
+import { DateTime, Duration, Interval } from "luxon";
 
 class Fetched {
   private data: Interval[] = [];
@@ -15,6 +15,12 @@ class Fetched {
   insert(periods: Interval | Interval[]) {
     this.data = Interval.merge(this.data.concat(periods));
   }
+
+  getUnfetchedPeriods(
+    datetime: DateTime,
+    duration: Duration,
+    maxPeriodDuration: Duration
+  ) {}
 }
 
 export default Fetched;
