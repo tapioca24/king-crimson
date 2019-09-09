@@ -1,7 +1,7 @@
-import AVLTree from 'avl'
+import AVLTree from "avl";
 
 class Storage {
-  private tree = new AVLTree()
+  private tree = new AVLTree();
 }
 
-export default Storage
+export default Storage;

@@ -3,5 +3,4 @@ declare module KingCrimson {
     timestamp: number;
     [key: string]: any;
   }
-
 }
