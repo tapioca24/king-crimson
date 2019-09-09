@@ -12,7 +12,7 @@ class Fetched {
     this.data = [];
   }
 
-  add(periods: Interval | Interval[]) {
+  insert(periods: Interval | Interval[]) {
     this.data = Interval.merge(this.data.concat(periods));
   }
 }

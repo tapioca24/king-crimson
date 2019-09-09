@@ -24,10 +24,10 @@ describe("Fetched", () => {
     5
   );
 
-  describe("add", () => {
+  describe("insert", () => {
     it("連続しない区間を追加", () => {
       const f = new Fetched();
-      f.add([ps[0], ps[2], ps[4]]);
+      f.insert([ps[0], ps[2], ps[4]]);
       expect(f.periods.length).toBe(3);
 
       expect(f.periods[0].equals(ps[0])).toBeTruthy();
@@ -37,7 +37,7 @@ describe("Fetched", () => {
 
     it("連続する区間を追加", () => {
       const f = new Fetched();
-      f.add([ps[0], ps[1], ps[4]]);
+      f.insert([ps[0], ps[1], ps[4]]);
       expect(f.periods.length).toBe(2);
       const e = Interval.fromDateTimes(ps[0].start, ps[1].end);
       expect(f.periods[0].equals(e)).toBeTruthy();
@@ -48,7 +48,7 @@ describe("Fetched", () => {
   describe("clear", () => {
     it("全データを削除", () => {
       const f = new Fetched();
-      f.add([ps[0], ps[1], ps[4]]);
+      f.insert([ps[0], ps[1], ps[4]]);
       f.clear();
       expect(f.periods.length).toBe(0);
     });
