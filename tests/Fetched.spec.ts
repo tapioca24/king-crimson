@@ -53,4 +53,46 @@ describe("Fetched", () => {
       expect(f.periods.length).toBe(0);
     });
   });
+
+  describe("getUnfetchedPeriods", () => {
+    const f = new Fetched();
+    f.insert([ps[0], ps[2], ps[3]]);
+
+    it("未取得区間が返される", () => {
+      const start = ps[0].start.minus({ hour: 1 });
+      const end = ps[4].end.plus({ hour: 1 });
+      const request = Interval.fromDateTimes(start, end);
+
+      const result = f.getUnfetchedPeriods(request);
+      expect(result.length).toBe(3);
+
+      let e;
+      e = Interval.fromDateTimes(start, ps[0].start);
+      expect(result[0].equals(e)).toBeTruthy();
+      e = Interval.fromDateTimes(ps[0].end, ps[2].start);
+      expect(result[1].equals(e)).toBeTruthy();
+      e = Interval.fromDateTimes(ps[3].end, end);
+      expect(result[2].equals(e)).toBeTruthy();
+    });
+
+    it("必要なら分割される", () => {
+      const start = ps[0].start.minus({ hour: 1 });
+      const end = ps[4].end.plus({ hour: 1 });
+      const request = Interval.fromDateTimes(start, end);
+      const limit = Duration.fromObject({ hour: 1 });
+
+      const result = f.getUnfetchedPeriods(request, limit);
+      expect(result.length).toBe(4);
+
+      let e;
+      e = Interval.fromDateTimes(start, ps[0].start);
+      expect(result[0].equals(e)).toBeTruthy();
+      e = Interval.fromDateTimes(ps[0].end, ps[2].start);
+      expect(result[1].equals(e)).toBeTruthy();
+      e = Interval.fromDateTimes(ps[3].end, ps[4].end);
+      expect(result[2].equals(e)).toBeTruthy();
+      e = Interval.fromDateTimes(ps[4].end, end);
+      expect(result[3].equals(e)).toBeTruthy();
+    });
+  });
 });
