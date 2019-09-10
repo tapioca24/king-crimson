@@ -26,8 +26,8 @@ class Fetched {
     for (const period of periods) {
       // 長さが `partitionedDurationLimit` より大きければ小さくなるように分割する
       const limit = durationLimit.valueOf();
-      const d = period.toDuration().valueOf();
-      const num = Math.ceil(d / limit);
+      const duration = period.toDuration().valueOf();
+      const num = Math.ceil(duration / limit);
       unfetched = unfetched.concat(period.divideEqually(num));
     }
     return unfetched;
