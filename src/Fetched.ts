@@ -7,7 +7,6 @@ class Fetched {
     return this.data;
   }
 
-  // 取得済み区間を削除する
   clear() {
     this.data = [];
   }
