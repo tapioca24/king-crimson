@@ -1,4 +1,4 @@
-import { DateTime, Duration, Interval } from "luxon";
+import { DateTime, Duration } from "luxon";
 import Storage from "@/Storage";
 import Fetched from "@/Fetched";
 import Fetcher, { FetchFn, UpdatePayload } from "@/Fetcher";
