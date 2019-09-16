@@ -1,21 +1,6 @@
 import Fetched from "../src/Fetched";
 import { DateTime, Duration, Interval } from "luxon";
-
-// 複数の連続して区間を作成する
-const createPeriods = (
-  start: DateTime,
-  durationPerPeriod: Duration,
-  num: number
-) => {
-  const periods: Interval[] = [];
-  let s = start;
-  for (let i = 0; i < num; i++) {
-    const p = Interval.after(s, durationPerPeriod);
-    periods.push(p);
-    s = s.plus(durationPerPeriod);
-  }
-  return periods;
-};
+import { createPeriods } from './testHelper'
 
 describe("Fetched", () => {
   const ps = createPeriods(
