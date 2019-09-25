@@ -9,7 +9,7 @@ export interface UpdatePayload<T> {
   period: Interval;
 }
 
-class Fetcher<T extends KingCrimson.SequentialData> extends EventEmitter {
+class Fetcher<T extends KingCrimson.DateTimeData> extends EventEmitter {
   constructor(private fetchFn: FetchFn<T>) {
     super();
   }

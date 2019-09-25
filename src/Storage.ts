@@ -1,7 +1,7 @@
 import AVLTree from "avl";
 import { Interval } from "luxon";
 
-class Storage<T extends KingCrimson.SequentialData> {
+class Storage<T extends KingCrimson.DateTimeData> {
   private tree = new AVLTree();
 
   get size() {
