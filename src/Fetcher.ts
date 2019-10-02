@@ -1,5 +1,6 @@
 import { EventEmitter } from "events";
 import { Interval } from "luxon";
+import Queue from "@/Queue";
 
 export interface FetchFn<T> {
   (period: Interval): Promise<T[]>;
@@ -10,18 +11,38 @@ export interface UpdatePayload<T> {
 }
 
 class Fetcher<T extends KingCrimson.DateTimeData> extends EventEmitter {
+  protected periodQueue: Queue<Interval>;
+
   constructor(private fetchFn: FetchFn<T>) {
     super();
+    this.periodQueue = new Queue<Interval>();
   }
 
-  fetch(periods: Interval[]) {
+  async fetch(periods: Interval[]) {
+    // まずキューに追加
     for (const period of periods) {
-      this.fetchFn(period).then(items => {
-        // emit update event
+      this.periodQueue.enqueue(period);
+    }
+
+    // キューから1つずつ取り出してフェッチを実行
+    while (this.periodQueue.size > 0) {
+      const period = this.periodQueue.dequeue();
+      if (!period) {
+        continue;
+      }
+      try {
+        const items = await this.fetchFn(period);
         const payload: UpdatePayload<T> = { items, period };
         this.emit("update", payload);
-      });
+      } catch (err) {
+        console.warn(err);
+      }
     }
+  }
+
+  cancel() {
+    // キューを空にする
+    this.periodQueue.clear();
   }
 }
 

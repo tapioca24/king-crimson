@@ -36,7 +36,7 @@ class KingCrimson<T extends KingCrimson.DateTimeData> {
     });
   }
 
-  fetch(datetime: DateTime) {
+  async fetch(datetime: DateTime) {
     const request = luxonHelper.getIntervalFromCenter(
       datetime,
       this.config.fetchDuration
@@ -50,7 +50,11 @@ class KingCrimson<T extends KingCrimson.DateTimeData> {
         return diffA - diffB;
       });
     // 実際にリクエストを投げてもらう
-    this.fetcher.fetch(unfetchedPeriods);
+    await this.fetcher.fetch(unfetchedPeriods);
+  }
+
+  cancel() {
+    this.fetcher.cancel();
   }
 }
 
