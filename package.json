@@ -25,5 +25,10 @@
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",
     "typescript": "^3.5.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tapioca24/king-crimson.git"
+  },
+  "homepage": "https://github.com/tapioca24/king-crimson"
 }
