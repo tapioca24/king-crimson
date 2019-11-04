@@ -1,24 +1,34 @@
-import { Interval } from "luxon";
-import { FetchFn } from "@/Fetcher";
-import KingCrimson, { KingCrimsonOptions } from "@/KingCrimson";
+import Base from "./Base";
 
-interface DateTimeDataManagerOptions extends KingCrimsonOptions {}
-type DateTimeDataManagerConfig = Required<
-  Omit<DateTimeDataManagerOptions, keyof KingCrimsonOptions>
->;
+class DateTimeDataManager<T> extends Base<T> {
+  protected _config: DateTimeDataManager.Config<T>;
+  protected _options: Required<DateTimeDataManager.Options<T>>;
 
-class DateTimeDataManager<
-  T extends KingCrimson.DateTimeData
-> extends KingCrimson<T> {
-  constructor(fetchFn: FetchFn<T>, options: DateTimeDataManagerOptions = {}) {
-    super(fetchFn, options);
-    const defaults: DateTimeDataManagerConfig = {};
-    this.config = Object.assign({}, defaults, this.config);
+  constructor(
+    config: DateTimeDataManager.Config<T>,
+    options: DateTimeDataManager.Options<T> = {}
+  ) {
+    super(config, options);
+    this._config = this.config;
+    const defaults: DateTimeDataManager.Defaults<T> = {};
+    this._options = { ...defaults, ...this.options };
   }
 
-  search(period: Interval) {
-    return this.storage.search(period);
+  protected get config() {
+    return this._config;
   }
+
+  protected get options() {
+    return this._options;
+  }
+}
+
+namespace DateTimeDataManager {
+  export interface Config<T> extends Base.Config<T> {}
+  export interface Options<T> extends Base.Options<T> {}
+  export type Defaults<T> = Required<
+    Omit<DateTimeDataManager.Options<T>, keyof Base.Options<T>>
+  >;
 }
 
 export default DateTimeDataManager;

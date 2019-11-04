@@ -1,5 +1,8 @@
 import { Duration, Interval } from "luxon";
 
+/**
+ * fetch 済みの区間を管理するクラス
+ */
 class Fetched {
   private data: Interval[] = [];
 

@@ -1,16 +1,20 @@
 import AVLTree from "avl";
 import { Interval } from "luxon";
 
-class Storage<T extends KingCrimson.DateTimeData> {
+class Storage<T> {
   private tree = new AVLTree();
 
   get size() {
     return this.tree.size;
   }
 
-  insert(items: T[]) {
-    for (const item of items) {
-      this.tree.insert(item.timestamp, item);
+  /**
+   * データを挿入する
+   * @param data 挿入するデータの配列
+   */
+  insert(data: { key: any, item: T }[]) {
+    for (const d of data) {
+      this.tree.insert(d.key, d.item)
     }
   }
 
@@ -22,12 +26,12 @@ class Storage<T extends KingCrimson.DateTimeData> {
     const start = period.start.toMillis();
     const end = period.end.toMillis();
 
-    const list: T[] = [];
+    const items: T[] = [];
     this.tree.range(start, end, node => {
       const data = node.data as T;
-      list.push(data);
+      items.push(data);
     });
-    return list;
+    return items;
   }
 }
 
