@@ -98,7 +98,7 @@ class Base<T> extends EventEmitter {
 namespace Base {
   export interface Config<T> {
     fetchFn: Fetcher.FetchFn<T>;
-    itemKey(item: any): any;
+    itemKey(item: T): any;
   }
 
   export interface Options<T> {
