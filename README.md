@@ -49,23 +49,23 @@ const ddm = new DateTimeDataManager<MyEventData>({
       cancel() {
         controller.abort();
       }
-    }
+    };
   },
   itemKey(item: MyEventData) {
-    return item.timestamp
+    return item.timestamp;
   }
 });
 
 // Execute fetch
-const datetime = DateTime.local()
-ddm.fetch(datetime)
+const datetime = DateTime.local();
+ddm.fetch(datetime);
 
 // Cancel fetch
-ddm.cansel()
+ddm.cansel();
 
 // Search data
-const interval = datetime.before(Duration.fromObject({ hour: 1 }))
-const data = ddm.searchBetween(interval)
+const interval = datetime.before(Duration.fromObject({ hour: 1 }));
+const data = ddm.searchBetween(interval);
 ```
 
 #### Config
@@ -77,10 +77,10 @@ const data = ddm.searchBetween(interval)
 
 #### Options
 
-| Property             | Type                                                                       | Default                                | Description                                                               |
-| -------------------- | -------------------------------------------------------------------------- | -------------------------------------- | ------------------------------------------------------------------------- |
-| fetchDuration        | `Duration`                                                                 | `Duration.fromObject({ hour: 24 })`    | Duration for making data requests in batch.                               |
-| requestDurationLimit | `Duration`                                                                 | `Duration.fromObject({ minute: 180 })` | Duration limit for one data request.                                      |
+| Property             | Type                                                                                       | Default                                | Description                                                               |
+| -------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------- | ------------------------------------------------------------------------- |
+| fetchDuration        | `Duration`                                                                                 | `Duration.fromObject({ hour: 24 })`    | Duration for making data requests in batch.                               |
+| requestDurationLimit | `Duration`                                                                                 | `Duration.fromObject({ minute: 180 })` | Duration limit for one data request.                                      |
 | updateInterceptor    | `((payload: { items: T[], period: Interval }) => { items: T[], period: Interval }) | null` | `null`                                 | Interceptor that transforms the payload before handling the update event. |
 
 ### IntervalDataManager
@@ -118,32 +118,32 @@ const idm = new IntervalDataManager<MyEventData>({
       cancel() {
         controller.abort();
       }
-    }
+    };
   },
   itemKey(item: MyEventData) {
-    return item.timestamp
+    return item.timestamp;
   },
   itemTimestamp(item: MyEventData) {
-    return item.timestamp
+    return item.timestamp;
   },
   itemDuration(item: MyEventData) {
-    return item.duration
+    return item.duration;
   }
 });
 
 // Execute fetch
-const datetime = DateTime.local()
-idm.fetch(datetime)
+const datetime = DateTime.local();
+idm.fetch(datetime);
 
 // Cancel fetch
-idm.cansel()
+idm.cansel();
 
 // Search data
-const interval = datetime.before(Duration.fromObject({ hour: 1 }))
-let data = idm.searchBetween(interval)
+const interval = datetime.before(Duration.fromObject({ hour: 1 }));
+let data = idm.searchBetween(interval);
 
 // Search for data that includes a specified datetime
-data = searchOn(datetime)
+data = searchOn(datetime);
 ```
 
 #### Config
