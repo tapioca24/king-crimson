@@ -27,7 +27,7 @@ class Fetched {
 
     let unfetched: Interval[] = [];
     for (const period of periods) {
-      // 長さが `partitionedDurationLimit` より大きければ小さくなるように分割する
+      // 長さが `durationLimit` より大きければ小さくなるように等分する
       const limit = durationLimit.valueOf();
       const duration = period.toDuration().valueOf();
       const num = Math.ceil(duration / limit);

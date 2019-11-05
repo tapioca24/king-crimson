@@ -35,6 +35,10 @@ class Base<T> extends EventEmitter {
     return this._options;
   }
 
+  get fetchedPeriods() {
+    return this.fetched.periods;
+  }
+
   /**
    * Fetcher の update イベントハンドラ
    * @param payload ペイロード
@@ -58,7 +62,7 @@ class Base<T> extends EventEmitter {
     this.fetched.insert(payload.period);
 
     // イベントをトリガーする
-    this.emit('update', payload)
+    this.emit("update", payload);
   }
 
   async fetch(datetime: DateTime) {
