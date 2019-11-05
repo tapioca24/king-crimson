@@ -29,6 +29,7 @@ namespace DateTimeDataManager {
   export type Defaults<T> = Required<
     Omit<DateTimeDataManager.Options<T>, keyof Base.Options<T>>
   >;
+  export type UpdatePayload<T> = Base.UpdatePayload<T>;
 }
 
 export default DateTimeDataManager;

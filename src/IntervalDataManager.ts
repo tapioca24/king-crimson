@@ -72,6 +72,7 @@ namespace IntervalDataManager {
   export type Defaults<T> = Required<
     Omit<IntervalDataManager.Options<T>, keyof Base.Options<T>>
   >;
+  export type UpdatePayload<T> = Base.UpdatePayload<T>;
 }
 
 export default IntervalDataManager;

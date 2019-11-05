@@ -1,3 +1,4 @@
+import { EventEmitter } from "events";
 import { Duration, DateTime, Interval } from "luxon";
 
 import Storage from "./utils/Storage";
@@ -5,7 +6,7 @@ import Fetched from "./Fetched";
 import Fetcher from "./Fetcher";
 import * as luxonHelper from "./utils/luxonHelper";
 
-class Base<T> {
+class Base<T> extends EventEmitter {
   protected _config: Base.Config<T>;
   protected _options: Required<Base.Options<T>>;
   protected storage = new Storage<T>();
@@ -13,6 +14,7 @@ class Base<T> {
   protected fetcher: Fetcher<T>;
 
   constructor(config: Base.Config<T>, options: Base.Options<T> = {}) {
+    super();
     this._config = config;
     const defaults: Required<Base.Options<T>> = {
       fetchDuration: Duration.fromObject({ hour: 24 }),
@@ -54,6 +56,9 @@ class Base<T> {
 
     // period を fetched に保存する
     this.fetched.insert(payload.period);
+
+    // イベントをトリガーする
+    this.emit('update', payload)
   }
 
   async fetch(datetime: DateTime) {
@@ -99,6 +104,7 @@ namespace Base {
       | ((payload: Fetcher.UpdatePayload<T>) => Fetcher.UpdatePayload<T>)
       | null;
   }
+  export type UpdatePayload<T> = Fetcher.UpdatePayload<T>;
 }
 
 export default Base;
