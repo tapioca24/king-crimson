@@ -16,7 +16,7 @@
   "dependencies": {
     "avl": "^1.4.4",
     "events": "^3.0.0",
-    "luxon": "^1.17.2"
+    "luxon": "^2.5.2"
   },
   "devDependencies": {
     "@types/events": "^3.0.0",
